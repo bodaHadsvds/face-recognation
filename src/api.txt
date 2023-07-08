@@ -1,0 +1,41 @@
+
+  //   Clarifai.COLOR_MODEL,
+  //   'face-detection', this.state.input)
+  //   .then(
+  //     function (respone) {
+  //       console.log(respone)
+        
+  //     },
+  //     function (err) {
+  //       console.log(err)
+        
+  //     }
+      
+  //   )
+
+
+  // }
+
+  
+  // fetch("https://api.clarifai.com/v2/models/" + "face-detection" +"/outputs", returnclarfiajsonRequestopition(this.state.input))
+  // .then(response => response.json())
+  //  .then(respone=>{
+  //   console.log( 'HI ' ,respone)
+  //   if(respone) {
+  //     fetch ("https:/localhost:3000/image", {
+  //       method:"put",
+  //       headers:{'content-Type':'application/json'},
+  //       body: JSON.stringify({
+  //           id: this.state.user.id
+  //       })
+
+  //     })
+    
+  //     .then(respone=>respone.JSON)
+  //     .then(count=>{
+  //    this.setState(Object.assign( this.state.user , {entries :count}))
+  //     })
+  //   }
+  //   })
+  
+  // }
