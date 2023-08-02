@@ -58,30 +58,26 @@ const raw = JSON.stringify({
 return requestOptions
 }
     
-    
-
+    const initialstate = { 
+      input :   '' ,
+      imageurl:"",
+      box :{},
+      route: "signin",
+      issignedin:false,
+      user: { 
+      id :  "",
+      name : '',
+      email: '',
+      entires : 0,
+      joined :""
+    }
+  }
 
 class App extends Component {
   constructor(){
     super()
-    this.state={ 
-      input :   '' ,
-      imageurl:"",
-      box :{},
-      route: "home",
-      issignedin:false,
-      user:{
-        id :  "",
-        name : '',
-        email: '',
-        entires : 0,
-        joined :""
-
-        
-      }
-    }
-
-}
+    this.state=initialstate
+  }
 loaduser=(data)=>{
   this.setState({user:{
     id :  data.id,
@@ -118,7 +114,7 @@ loaduser=(data)=>{
   }   
   displayFaceBox =(box)=>{
     this.setState({box:box})
-    console.log("box",box);
+    // console.log("box",box);
   }
 
 OnInputChange = (event) =>{
@@ -135,22 +131,26 @@ this.setState({imageurl:this.state.input})
   returnclarfiajsonRequestopition(this.state.input))
   .then(response => response.json())
    .then(respone=>{
-    console.log( 'HI ' ,respone)
-    // if(respone) {
-    //   fetch ("https:/localhost:3000/image", {
-    //     method:"put",
-    //     headers:{'content-Type':'application/json'},
-    //     body: JSON.stringify({
-    //         id: this.state.user.id
-    //     })
+    if(respone) {
+      fetch ("https://test-app-1kyg.onrender.com/image/", {
+        method:'put',
+        headers:{'content-Type':'application/json',
+        "Access-Control-Allow-Origin": "*"},
+        body: JSON.stringify({
+            id: this.state.user.id
+            
+        })
 
-    //   })
+      })
     
-    //   .then(respone=>respone.JSON)
-    //   .then(count=>{
-    //  this.setState(Object.assign( this.state.user , {entries :count}))
-    //   })
-    // }
+      .then(respone=> respone.json())
+      
+      .then(count=>{
+     this.setState(  Object.assign( this.state.user,{entires :count.entires} ) 
+      ) 
+console.log( "count",count);    
+    })
+    }
     this.displayFaceBox(this.calculatefacelocation(respone))
     })
   .catch(err=> console.log(err))
@@ -158,7 +158,7 @@ this.setState({imageurl:this.state.input})
 
   onRouteChange =(route)=>{
     if(route==="signout"){
-      this.setState({issignedin:false})
+      this.setState(initialstate )
     } else if (route === "home")  {
       this.setState({issignedin : true});
     }
@@ -195,12 +195,12 @@ render(){
 
       <Navigation  issignedin={this.state.issignedin} onRouteChange={this.onRouteChange} />
       {this.state.route === "home" ?  <div> <Logo />
-      <Rank />
+       <Rank  name={this.state.user.name} entires={this.state.user.entires} />
       <Imagelinkform  OnInputChange={this.OnInputChange}  OnButtonSubmit={this.OnButtonSubmit} />
       <Facerecognation box={this.state.box} imageurl={this.state.imageurl} />
   </div> :
           (  this.state.route==="signin"
-           ?   <Signin onsubmitsignin={this.onsubmitsignin} onRouteChange={this.onRouteChange} />
+           ?   <Signin loaduser={this.loaduser} onRouteChange={this.onRouteChange} />
             :   <Regsiter loaduser={this.loaduser} onRouteChange={this.onRouteChange} /> )
      
       

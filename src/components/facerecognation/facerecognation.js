@@ -3,7 +3,7 @@ import './facerecognation.css'
 
 
 const Facerecognation = ( {imageurl ,box}) =>{
-    console.log("box",box)
+    // console.log("box",box)
 return (
     <div className="center ma "> 
     <div className=" absolute mt2" >  

@@ -24,7 +24,7 @@ class Regsiter extends React.Component{
     this.setState({ password:event.target.value})
   }
   onsubmitsignin =()=>{
-    fetch("http://localhost:3000/register", {
+    fetch("https://test-app-1kyg.onrender.com/register", {
       method:'Post',
       headers:{"content-Type":"application/json"},
       body:JSON.stringify({
@@ -38,8 +38,8 @@ class Regsiter extends React.Component{
     .then(response=>response.json())
     .then(
       user=>{
-        if(user==="success"){ 
-          this.loaduser(user)
+        if(user.id){ 
+          this.props.loaduser(user)
           this.props.onRouteChange("home")
         }
       }
@@ -49,6 +49,7 @@ class Regsiter extends React.Component{
   }
   render(){
    
+    
     return (<article className="br4 ba  b--black-10 mv4 w-100 w-50-m w-25-l mw6 Shadow-5 center">
     <main className="pa4 black-80">
 <div className="measure ">
